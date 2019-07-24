@@ -1,0 +1,14 @@
+.mvn/
+*.log
+*.iml
+mvnw*
+target/
+.idea/
+.DS_Store
+docker/*.jar
+logs/
+.project
+.classpath
+.factorypath
+.settings/
+.vscode/
