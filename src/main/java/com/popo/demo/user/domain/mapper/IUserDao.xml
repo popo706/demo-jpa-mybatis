@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.popo.demo.user.domain.mapper.IUserDao">
+
+    <resultMap id="UserInfoResult" type="com.popo.demo.user.domain.model.UserInfo">
+        <id property="userId" column="userId"></id>
+        <result property="realName" column="realName"></result>
+        <result property="phoneNum" column="phoneNum"></result>
+        <result property="birthday" column="birthday"></result>
+        <collection property="userDepts" ofType="com.popo.demo.user.domain.model.UserDept" autoMapping="true">
+            <result property="id" column="id"></result>
+            <result property="deptName" column="deptName"></result>
+        </collection>
+    </resultMap>
+
+    <select id="findOne" resultType="com.popo.demo.user.domain.model.User">
+        SELECT id,realName,phoneNum,birthDay
+        FROM user
+        WHERE id = #{id}
+    </select>
+
+    <select id="findUserInfo" resultMap="UserInfoResult">
+        SELECT u.id as userId,realName,phoneNum,birthDay,ud.id,ud.deptName
+        FROM user u
+        LEFT JOIN user_dept ud on ud.userId=u.id
+        WHERE u.id = #{id}
+        ORDER BY ud.id
+    </select>
+</mapper>
